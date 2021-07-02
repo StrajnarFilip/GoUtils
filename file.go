@@ -20,10 +20,6 @@ import (
 	jsoniter "github.com/json-iterator/go"
 )
 
-func Hi() {
-	println("Hello world")
-}
-
 func JSONserialize(anything interface{}) string {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
 	serialized, err := json.Marshal(anything)
@@ -31,4 +27,14 @@ func JSONserialize(anything interface{}) string {
 		println(err.Error())
 	}
 	return string(serialized)
+}
+
+func JSONdeserialize(jsonString string) interface{} {
+	json := jsoniter.ConfigCompatibleWithStandardLibrary
+	var deserialized interface{}
+	err := json.Unmarshal([]byte(jsonString), deserialized)
+	if err != nil {
+		println(err.Error())
+	}
+	return deserialized
 }
