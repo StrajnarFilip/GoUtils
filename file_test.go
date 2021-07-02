@@ -21,5 +21,7 @@ func TestJSONdesrialize(t *testing.T) {
 	json_string := `{"Name":"John","Year":1970,"Note":"None"}`
 	var output Str
 	JSONdeserialize(json_string, &output)
-	println(output.Name, output.Note, output.Year)
+	if output.Name != "John" || output.Note != "None" || output.Year != float64(1970) {
+		t.Error("JSON deserialization failed!")
+	}
 }
