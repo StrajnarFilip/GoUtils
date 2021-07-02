@@ -17,6 +17,8 @@ limitations under the License.
 package GoUtils
 
 import (
+	"encoding/base64"
+
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -29,6 +31,8 @@ func JSONserialize(anything interface{}) string {
 	return string(serialized)
 }
 
+// Do not forget to assert type of output!
+// Reminder: assertion looks like: x.(T)
 func JSONdeserialize(jsonString string) interface{} {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
 	var deserialized interface{}
@@ -37,4 +41,16 @@ func JSONdeserialize(jsonString string) interface{} {
 		println(err.Error())
 	}
 	return deserialized
+}
+
+func ToBase64(bytes []byte) string {
+	var result []byte
+	base64.StdEncoding.Encode(result, bytes)
+	return string(result)
+}
+
+func Base64ToString(encoded string) []byte {
+	var decoded []byte
+	base64.StdEncoding.Decode(decoded, []byte(encoded))
+	return decoded
 }
