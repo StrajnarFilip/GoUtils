@@ -25,3 +25,19 @@ func TestJSONdesrialize(t *testing.T) {
 		t.Error("JSON deserialization failed!")
 	}
 }
+
+func TestXMLserialize(t *testing.T) {
+	testing_object := &Str{Name: "John", Year: 1970, Note: "None"}
+	if XMLserialize(testing_object) != `<Str><Name>John</Name><Year>1970</Year><Note>None</Note></Str>` {
+		t.Error("XML serialization failed")
+	}
+}
+
+func TestXMLdesrialize(t *testing.T) {
+	json_string := `<Str><Name>John</Name><Year>1970</Year><Note>None</Note></Str>`
+	var output Str
+	XMLdeserialize(json_string, &output)
+	if output.Name != "John" || output.Note != "None" || output.Year != float64(1970) {
+		t.Error("XML deserialization failed!")
+	}
+}

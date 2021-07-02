@@ -18,21 +18,24 @@ package GoUtils
 
 import (
 	"encoding/base64"
+	"encoding/xml"
 
 	jsoniter "github.com/json-iterator/go"
 )
 
-func JSONserialize(anything interface{}) string {
+// Do not forget to pass a pointer to input!
+// Passing function parameter without "&" will fail!
+func JSONserialize(input interface{}) string {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
-	serialized, err := json.Marshal(anything)
+	serialized, err := json.Marshal(input)
 	if err != nil {
 		println(err.Error())
 	}
 	return string(serialized)
 }
 
-// Do not forget to pass a pointer!
-// Passing function parameter without & will fail!
+// Do not forget to pass a pointer to output!
+// Passing function parameter without "&" will fail!
 func JSONdeserialize(jsonString string, output interface{}) {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
 	err := json.Unmarshal([]byte(jsonString), output)
@@ -51,4 +54,23 @@ func Base64ToString(encoded string) []byte {
 	var decoded []byte
 	base64.StdEncoding.Decode(decoded, []byte(encoded))
 	return decoded
+}
+
+// Do not forget to pass a pointer to input!
+// Passing function parameter without "&" will fail!
+func XMLserialize(input interface{}) string {
+	result, err := xml.Marshal(input)
+	if err != nil {
+		println(err.Error())
+	}
+	return string(result)
+}
+
+// Do not forget to pass a pointer to output!
+// Passing function parameter without "&" will fail!
+func XMLdeserialize(xmlString string, output interface{}) {
+	err := xml.Unmarshal([]byte(xmlString), output)
+	if err != nil {
+		println(err.Error())
+	}
 }
