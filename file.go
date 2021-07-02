@@ -33,14 +33,12 @@ func JSONserialize(anything interface{}) string {
 
 // Do not forget to assert type of output!
 // Reminder: assertion looks like: x.(T)
-func JSONdeserialize(jsonString string) interface{} {
+func JSONdeserialize(jsonString string, output interface{}) {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
-	var deserialized interface{}
-	err := json.Unmarshal([]byte(jsonString), deserialized)
+	err := json.Unmarshal([]byte(jsonString), output)
 	if err != nil {
 		println(err.Error())
 	}
-	return deserialized
 }
 
 func ToBase64(bytes []byte) string {
