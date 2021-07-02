@@ -31,8 +31,8 @@ func JSONserialize(anything interface{}) string {
 	return string(serialized)
 }
 
-// Do not forget to assert type of output!
-// Reminder: assertion looks like: x.(T)
+// Do not forget to pass a pointer!
+// Passing function parameter without & will fail!
 func JSONdeserialize(jsonString string, output interface{}) {
 	json := jsoniter.ConfigCompatibleWithStandardLibrary
 	err := json.Unmarshal([]byte(jsonString), output)
