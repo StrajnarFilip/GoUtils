@@ -16,6 +16,19 @@ limitations under the License.
 
 package GoUtils
 
+import (
+	jsoniter "github.com/json-iterator/go"
+)
+
 func Hi() {
 	println("Hello world")
+}
+
+func JSONserialize(anything interface{}) string {
+	json := jsoniter.ConfigCompatibleWithStandardLibrary
+	serialized, err := json.Marshal(anything)
+	if err != nil {
+		println(err.Error())
+	}
+	return string(serialized)
 }
