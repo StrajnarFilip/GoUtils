@@ -19,6 +19,7 @@ package GoUtils
 import (
 	"encoding/base64"
 	"encoding/xml"
+	"os"
 
 	jsoniter "github.com/json-iterator/go"
 )
@@ -73,4 +74,39 @@ func XMLdeserialize(xmlString string, output interface{}) {
 	if err != nil {
 		println(err.Error())
 	}
+}
+
+func FileWrite(path string, content []byte) {
+	fp, err := os.Create(path)
+	if err != nil {
+		println("Failed to create file")
+		return
+	}
+	_, err2 := fp.Write(content)
+	if err2 != nil {
+		println("Failed to write to file")
+		return
+	}
+	fp.Close()
+}
+
+func FileRead(path string) []byte {
+	fp, err := os.Open(path)
+	if err != nil {
+		println("Failed to open file")
+		return nil
+	}
+	finfo, err1 := fp.Stat()
+	if err1 != nil {
+		println("Failed to get file stats")
+		return nil
+	}
+	byte_slice := make([]byte, finfo.Size())
+	_, err2 := fp.Read(byte_slice)
+	if err2 != nil {
+		println("Failed to read file")
+		return nil
+	}
+	fp.Close()
+	return byte_slice
 }

@@ -1,6 +1,7 @@
 package GoUtils
 
 import (
+	"os"
 	"testing"
 )
 
@@ -55,6 +56,19 @@ func TestXMLdesrialize(t *testing.T) {
 	XMLdeserialize(json_string, &output)
 	if output.Name != "John" || output.Note != "None" || output.Year != float64(1970) {
 		t.Error("XML deserialization failed!")
+		Fail()
+		return
+	}
+	Pass()
+}
+
+func TestFileReadWrite(t *testing.T) {
+	file_name := ".testing_file_readwrite_obfuscated_name.xyz"
+	FileWrite(file_name, []byte("Write good"))
+	result := string(FileRead(file_name))
+	os.Remove(file_name)
+	if result != "Write good" {
+		t.Error("Failed to read/write")
 		Fail()
 		return
 	}
