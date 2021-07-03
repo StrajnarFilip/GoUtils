@@ -74,3 +74,25 @@ func TestFileReadWrite(t *testing.T) {
 	}
 	Pass()
 }
+
+func TestBase64Encode(t *testing.T) {
+	encode_this := []byte("Testing this base64 encoding")
+	result := (ToBase64(encode_this))
+	if result != "VGVzdGluZyB0aGlzIGJhc2U2NCBlbmNvZGluZw==" {
+		t.Error("Failed to base64 encode")
+		Fail()
+		return
+	}
+	Pass()
+}
+
+func TestBase64Decode(t *testing.T) {
+	decode_this := "VGVzdGluZyB0aGlzIGJhc2U2NCBlbmNvZGluZw=="
+	result := string(Base64ToBytes(decode_this))
+	if result != "Testing this base64 encoding" {
+		t.Error("Failed to base64 decode")
+		Fail()
+		return
+	}
+	Pass()
+}

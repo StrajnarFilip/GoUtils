@@ -46,14 +46,15 @@ func JSONdeserialize(jsonString string, output interface{}) {
 }
 
 func ToBase64(bytes []byte) string {
-	var result []byte
-	base64.StdEncoding.Encode(result, bytes)
-	return string(result)
+	result := base64.StdEncoding.EncodeToString(bytes)
+	return result
 }
 
-func Base64ToString(encoded string) []byte {
-	var decoded []byte
-	base64.StdEncoding.Decode(decoded, []byte(encoded))
+func Base64ToBytes(encoded string) []byte {
+	decoded, err := base64.StdEncoding.DecodeString(encoded)
+	if err != nil {
+		println("Failed to base64 encode")
+	}
 	return decoded
 }
 
