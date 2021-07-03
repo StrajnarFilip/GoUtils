@@ -1,4 +1,4 @@
-package GoUtils
+package x
 
 import (
 	"os"
@@ -6,10 +6,10 @@ import (
 )
 
 func Pass() {
-	println("\x1b[32m=== TEST PASSED ===\x1b[0m")
+	println("\x1b[32m===✅ TEST PASSED ===\x1b[0m")
 }
 func Fail() {
-	println("\x1b[31m=== TEST FAILED ===\x1b[0m")
+	println("\x1b[31m===❌ TEST FAILED ===\x1b[0m")
 }
 
 type Str struct {
